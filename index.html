@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Interactive Scalable Vector Graphics Javascript</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SVG Intro</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Home - Intro</a></li>
+        <li><a href="interaction.html">Interaction</a></li>
+        <li><a href="addingElements.html">Adding Elements</a></li>
+        <li><a href="interference.html">Interference</a></li>
+        <li><a href="traversingDOM.html">Traversing DOM</a></li>
+        <li><a href="postalCode.html">Postal Code MAP</a></li>
+        <li><a href="gcd.html">Generate Greatest Common Divisors</a></li>
+        <li><a href="satellite.html">Satellite Trajectory</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+	  <h1>Scalable vector Graphics SVG</h1>
+      <p>SVG (Scalable Vector Graphics) is a W3C recommendation defining an XML
+        standard for graphics on the web.
+        It is comparable to flash, however SVG is an open standard. SVG uses
+        concepts like points, lines and curves. A simple example is:
+        <pre>
+&lt?xml version="1.0" standalone="no"?&gt  
+&lt!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt  
+&ltsvg width="100" height="100" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt  
+   &ltcircle cx="50" cy="50" r="30" stroke="black" stroke-width="2" fill="yellow"/&gt  
+&lt/svg&gt  
+        </pre>
+        The example source shows
+        some administrative overhead and an instruction to draw a black circle
+        with yellow filling in an area of
+        100 * 100 pixels. Save it as a text file with extension .svg using
+        whatever text editor you like and open this file in an
+        SVG enabled browser.
+        Is will show up like:
+      </p>
+      <p>
+	<object type="image/svg+xml" data="circle.svg" height="150" width="150">
+          <param name="src" value="circle.svg">
+          alt : <a href="circle.svg">It seems your browser does not support SVG. Consider using Google Chrome or another SVG 
+          enabled browser</a>
+        </object>
+      </p>
+      <p>
+      Experiment adding an element like:
+      <pre> 
+&lttext x="10" y="50" font-family="arial" font-size="10" fill="blue" &gtHello world!&lt/text&gt
+      </pre>
+      </p>
+    </div>
+    <div class="col-md-4">
+      <h2>Links</h2>
+      <ul>
+        <li><a href="http://www.divisorplot.com/">Beautiful number theory (divisorplot.com)</a></li>
+        <li><a href="http://graffitiresearchlab.com/">Fun! (graffitiresearchlab.com)</a></li>
+        <li><a href="http://radicalart.info/">Lots of art (radicalart.info)</a></li>
+        <li><a href="http://www.michaelbach.de/ot/index.html">Optical illusions (michaelbach.de)</a></li>
+        <li><a href="http://processing.org/">Electronic Sketchbook using Java (processing.org)</a></li>
+        <li><a href="http://complexification.net/">Computational art (complexification.net)</a></li>
+        <li><a href="http://www.aaronkoblin.com/work.html">Interactive Art (aaronkoblin.com)</a></li>
+        <li><a href="http://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html">SVG Primer (sru.edu/david.dailey)</a></li>
+        <li><a href="http://www.w3schools.com/svg/">Tutorial (w3schools.com/svg)</a></li>
+        <li><a href="http://www.w3.org/Graphics/SVG/">-T-H-E- standard (w3.org/Graphics/SVG)</a></li>
+        <li><a href="http://www.svgbasics.com/">Tutorial, extensive on basic shapes (svgbasics.com)</a></li>
+        <li><a href="http://www.carto.net/">Lots and lots of material often related to cartography (carto.net)</a></li>
+        <li><a href="http://dev.w3.org/SVG/profiles/1.1F2/test/harness/htmlObject/index.html">Testset SVG 1.1 (dev.w3.org/..)</a></li>
+        <li><a href="http://svg.kvalitne.cz/index2.htm">Games in SVG (svg.kvalitne.cz)</a></li>
+        <li><a href="http://raphaeljs.com/">JavaScript library for SVG (raphaeljs.com)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom">
+    &copy; <a href="mailto:jvdmeiden@gmail.com">Jan van der Meiden</a> 2015</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<svg xmlns='http://www.w3.org/2000/svg'
+     width="1000px" height="1000px" version="1.1"
+     onload="startup(evt)" onmousedown="msdn(evt)"
+     onmousemove="move(evt)" onmouseup="msup(evt)" >
+
+<script><![CDATA[
+  var SVGDocument = null;
+  var SVGRoot = null;
+  var count=0;
+  var up=1;
+  var svgns = 'http://www.w3.org/2000/svg';
+  var xcentre = 500;
+  var ycentre = 500;
+  var xpos = 0;
+  var ypos = 0;
+ 
+function startup(evt){
+  O=evt.target;
+  SVGDoc = O.ownerDocument;
+  SVGRoot = SVGDoc.documentElement;
+  for ( var i = 1; i < 1500; i+=20) 
+  {
+    N = SVGDoc.createElementNS(svgns,"circle");
+    N.setAttribute("id", "P"+i);
+    N.setAttribute("cx", xcentre); 
+    N.setAttribute("cy", ycentre); 
+    N.setAttribute("r", i); 
+    N.setAttribute("stroke", "darkred");
+    N.setAttribute("stroke-width", "10");
+    N.setAttribute("fill-opacity", "0.0");
+    N.setAttribute("fill", "white");    
+    SVGRoot.appendChild(N);
+  }	
+   
+  for ( var i = 1; i < 1500; i+=20) 
+  {
+    N = SVGDoc.createElementNS(svgns,"rect");
+    N.setAttribute("x", i); 
+    N.setAttribute("y", 0); 
+    N.setAttribute("width", 10); 
+    N.setAttribute("height", 1000);
+    N.setAttribute("fill", "darkgrey");
+    N.setAttribute("line-opacity", "0.8");
+    SVGRoot.appendChild(N);
+  }	
+   
+}
+
+function msdn(evt) {
+  xpos=evt.clientX-xcentre;
+  ypos=evt.clientY-ycentre;
+  up=0;
+}
+
+function msup(evt) {
+  up=1;
+}
+
+function move(evt){
+  if (up==0) {
+    xcentre=(evt.clientX-xpos);
+    ycentre=(evt.clientY-ypos);
+    for ( var i = 1; i < 1500; i+=20) 
+    {
+      N = SVGDoc.getElementById("P"+i);
+      N.setAttribute("id", "P"+i);
+      N.setAttribute("cx", xcentre); 
+      N.setAttribute("cy", ycentre); 
+      N.setAttribute("r", i); 
+    }	
+  }
+}
+]]></script> 
+
+<rect id="P" x="0" y="0" width="100%" height="100%" fill="#f0f0f0"/> 
+</svg> 

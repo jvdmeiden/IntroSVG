@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SVG Intro</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SVG Intro</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home - Intro</a></li>
+        <li><a href="interaction.html">Interaction</a></li>
+        <li><a href="addingElements.html">Adding Elements</a></li>
+        <li><a href="interference.html">Interference</a></li>
+        <li><a href="traversingDOM.html">Traversing DOM</a></li>
+        <li class="active"><a href="postalCode.html">Postal Code MAP</a></li>
+        <li><a href="gcd.html">Generate Greatest Common Divisors</a></li>
+        <li><a href="satellite.html">Satellite Trajectory</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Postal Code Demo</h1>
+      <p>
+        This is a simple map showing the main coordinates of dutch postal codes.
+     <pre>
+&lt;svg width="1000" height="1030" version="1.1" xmlns="http://www.w3.org/2000/svg" onload="Init()"&gt; 
+ 
+  &lt;script type="text/ecmascript"&gt;   &lt;![CDATA[
+    var evtT1;
+    
+    function Init(evt)
+    {
+       evtT1 = document.getElementById("evtText1");
+
+    }
+    function Highlight(evt)
+    {
+       evt.target.setAttribute("opacity", "1.0");
+       evt.target.setAttribute("fill", "red");
+       evt.target.setAttribute("r", "4");
+       evtT1.firstChild.nodeValue = "Mouse over postcode: " + evt.target.getAttributeNS(null,"postcode");
+    }
+    function Unhighlight(evt)
+    {
+       evt.target.setAttribute("opacity", "0.8");
+       evt.target.setAttribute("fill", "white");
+       evt.target.setAttribute("r", "2");
+       evtT1.firstChild.nodeValue = "";
+    }
+  ]]&gt;
+  &lt;/script&gt; 
+&lt;rect x="0" y="0" width="100%" height="100%" fill="#101010"/&gt;
+
+&lt;g font-size="24px" font-family="Arial" stroke="white" fill="white" &gt; 
+        &lt;text x="20" y="20" id="evtText1"&gt; &lt;/text&gt; 
+&lt;/g&gt; 
+
+&lt;circle cx="442.1889343261719" cy="406.83635787963914" r="2" fill="white" opacity="0.8" postcode="1011" onmouseover="Highlight(evt);" onmouseout="Unhighlight(evt);"   /&gt;
+&lt;circle cx="440.47754669189453" cy="406.1656425476079" r="2" fill="white" opacity="0.8" postcode="1012" onmouseover="Highlight(evt);" onmouseout="Unhighlight(evt);"   /&gt;
+....
+&lt;circle cx="845.1815605163574" cy="71.40501480102586" r="2" fill="white" opacity="0.8" postcode="9998" onmouseover="Highlight(evt);" onmouseout="Unhighlight(evt);"   /&gt;
+&lt;circle cx="836.4022636413574" cy="76.79995422363328" r="2" fill="white" opacity="0.8" postcode="9999" onmouseover="Highlight(evt);" onmouseout="Unhighlight(evt);"   /&gt;
+&lt;/svg&gt;
+      </pre>
+        It will show up like (drag circles):
+      </p>
+      <p>
+	<object type="image/svg+xml" data="postalCode.svg" height="1030" width="1000">
+          <param name="src" value="postalCode.svg">
+          alt : <a href="postalCode.svg">It seems your browser does not support SVG. Consider using Google Chrome or another SVG 
+          enabled browser</a>
+        </object>
+      </p>
+    </div>
+  </div>
+  <div class="bottom">
+    &copy; <a href="mailto:jvdmeiden@gmail.com">Jan van der Meiden</a> 2015</a>
+  </div>
+</div>
+</body>
+</html>

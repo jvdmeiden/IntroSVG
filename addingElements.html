@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SVG Intro</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SVG Intro</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home - Intro</a></li>
+        <li><a href="interaction.html">Interaction</a></li>
+        <li class="active"><a href="addingElements.html">Adding Elements</a></li>
+        <li><a href="interference.html">Interference</a></li>
+        <li><a href="traversingDOM.html">Traversing DOM</a></li>
+        <li><a href="postalCode.html">Postal Code MAP</a></li>
+        <li><a href="gcd.html">Generate Greatest Common Divisors</a></li>
+        <li><a href="satellite.html">Satellite Trajectory</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Adding Elements</h1>
+      <p>
+      A bit more advanced example is shown below. 
+      The javascript is payload in the (green) CDATA section. 
+      The top element registers a number of listeners: onmousemove, onmousedown and onmouseup. 
+      The corresponding handlers can be found in the CDATA section. On startup the SVG will be an empty rectangle.
+      First of all there is a state engine: state being kept in the variable 'up'. The value will be toggled by the functions registered by 'onmousedown' and 'onmouseup'.
+      On mousemove the 'move' fuction will create a new circle, if the mouse is down.
+      It is great to watch the DOM grow: this works well in in most browsers by right clicking and choosing 'Inspect element'.
+     <pre>
+&lt;svg xmlns="http://www.w3.org/2000/svg" 
+  xmlns:xlink="http://www.w3.org/1999/xlink" 
+  onload="startup(evt)" onmousemove="move(evt)" onmousedown="msdn(evt)" 
+  onmouseup="msup(evt)" &gt;
+&lt;script&gt;&lt;![CDATA[
+  var SVGDocument = null;
+  var SVGRoot = null;
+  var count=0;
+  var up=1;
+  var svgns = 'http://www.w3.org/2000/svg';
+
+  function startup(evt){
+    O=evt.target;
+    SVGDoc = O.ownerDocument;
+    SVGRoot = SVGDoc.documentElement;
+  }
+
+  function msdn(evt) {
+    up=0;
+  }
+
+  function msup(evt) {
+    up=1;
+  }
+  
+  function move(evt){
+    if (up==0) {
+      N = SVGDoc.createElementNS(svgns,"circle");
+      N.setAttributeNS(svgns,"id", "P"+count);
+      N.setAttribute("cx", evt.clientX);
+      N.setAttribute("cy", evt.clientY);
+      N.setAttribute("r", 100);
+      N.setAttribute("opacity",.2);
+      N.setAttribute("fill", "rgb(255,"+(count++*3)%255+",0)");
+      SVGRoot.appendChild(N);
+    }
+  }
+]]&gt;&lt;/script&gt;
+
+  &lt;rect id="P" x="0" y="0" width="100%" height="100%" fill="#333"/&gt;
+&lt;/svg&gt;
+        </pre>
+        It will show up like (click and move mouse):
+      </p>
+      <p>
+	<object type="image/svg+xml" data="addingElements.svg" height="640" width="640">
+          <param name="src" value="addingElements.svg">
+          alt : <a href="addingElements.svg">It seems your browser does not support SVG. Consider using Google Chrome or another SVG 
+          enabled browser</a>
+        </object>
+      </p>
+    </div>
+  </div>
+  <div class="bottom">
+    &copy; <a href="mailto:jvdmeiden@gmail.com">Jan van der Meiden</a> 2015</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SVG Intro</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SVG Intro</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home - Intro</a></li>
+        <li><a href="interaction.html">Interaction</a></li>
+        <li><a href="addingElements.html">Adding Elements</a></li>
+        <li><a href="interference.html">Interference</a></li>
+        <li><a href="traversingDOM.html">Traversing DOM</a></li>
+        <li><a href="postalCode.html">Postal Code MAP</a></li>
+        <li><a href="gcd.html">Generate Greatest Common Divisors</a></li>
+        <li class="active"><a href="satellite.html">Satellite Trajectory</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Satellite Trajectory</h1>
+      <p>
+        Sample interactive satellite trajectory. The calculation is inaccurate, improvement is left as a challenge for the time being.
+     <pre>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no" ?&gt; 
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/SVG/DTD/svg10.dtd"&gt; 
+&lt;svg width="1600" height="1000" xmlns="http://www.w3.org/2000/svg" 
+onload="startup(evt)"  onmouseup="msup(evt)" onmousedown="msdn(evt)"&gt;
+
+&lt;defs&gt;
+  &lt;linearGradient id="d_gradient" x1="100%" y1="100%" x2="0%" y2="0%"&gt;
+    &lt;stop offset="0%" style="stop-color:rgb(30,30,0);	stop-opacity:1"/&gt;
+    &lt;stop offset="100%" style="stop-color:rgb(255,230,180);	stop-opacity:1"/&gt;
+  &lt;/linearGradient&gt;
+&lt;/defs&gt;
+
+&lt;script&gt;&lt;![CDATA[
+  var SVGDoc = null;
+  var SVGRoot = null;
+  var Layer1 = null;
+  var Layer2 = null;
+  var Layer3 = null;
+  var pxpos = 500.0;
+  var pypos = 500.0;
+  var pmass = 100.0;
+  var sxpos = 500.0;
+  var sypos = 150.0;
+  var sxspeed = 3.0;
+  var syspeed = 0.0;
+  var gravity = 0.3;
+  var xonplanet;
+  var yonplanet;
+  var count=0;
+  var svgns = 'http://www.w3.org/2000/svg';
+  var mousedn=0;
+ 
+function startup(evt){
+  SVGDoc = evt.target.ownerDocument;
+  Layer1 = SVGDoc.getElementById("Layer1");
+  Layer2 = SVGDoc.getElementById("Layer2");
+  Layer3 = SVGDoc.getElementById("Layer3");
+  t=setTimeout("tick()",50);
+}
+
+function tick(evt){
+  Sat=SVGDoc.getElementById("Satellite");
+  if ( count++%4 == 0){ 
+    NewDot = SVGDoc.createElementNS(svgns,"circle");
+    NewDot.setAttribute("id", "P"+count++);
+    NewDot.setAttribute("cx", sxpos); 
+    NewDot.setAttribute("cy", sypos); 
+    NewDot.setAttribute("r", 2);  
+    NewDot.setAttribute("opacity",0.7);
+    NewDot.setAttribute("fill", "rgb(230,220,0)");
+    Layer3.appendChild(NewDot);
+  }
+  dsqr=(pxpos-sxpos)*(pxpos-sxpos)+(pypos-sypos)*(pypos-sypos);
+  F=(pmass*gravity)/dsqr;
+  
+  sxspeed=sxspeed+(pxpos-sxpos)*F;
+  syspeed=syspeed+(pypos-sypos)*F;
+  
+  sxpos+=sxspeed;
+  sypos+=syspeed;
+  
+  Sat.setAttribute("cx", sxpos);
+  Sat.setAttribute("cy", sypos);
+   
+  t=setTimeout("tick()",50);
+}
+
+function msdn(evt){
+  mousedn=1;
+  Planet=SVGDoc.getElementById("Planet");
+  xonplanet=evt.clientX-pxpos;
+  yonplanet=evt.clientY-pypos;
+}
+
+function msup(evt){
+  mousedn=0;
+}
+
+function pmsdrg(evt){
+  if (mousedn == 1){
+    Planet=SVGDoc.getElementById("Planet");
+    pxpos=evt.clientX-xonplanet;
+    pypos=evt.clientY-yonplanet;
+    Planet.setAttribute("cx", pxpos);
+    Planet.setAttribute("cy", pypos);
+  }
+}
+
+]]&gt;&lt;/script&gt; 
+
+&lt;rect x="0" y="0" width="100%" height="100%" fill="#101010"/&gt; 
+ &lt;g id="Layer3"&gt;
+ &lt;/g&gt;
+ &lt;g id="Layer2"&gt;
+   &lt;circle cx="500" cy="150" r="4.0" id="Satellite" fill="#BBBB00"&gt;
+   &lt;/circle&gt; 
+ &lt;/g&gt;
+ &lt;g id="Layer1"&gt;
+   &lt;circle cx="500" cy="500" r="30.0" id="Planet" style="fill:url(#d_gradient)" onmousemove="pmsdrg(evt)"&gt;
+   &lt;/circle&gt;
+ &lt;/g&gt;
+&lt;/svg&gt; </pre>
+        It will show up like (drag the planet):
+      </p>
+      <p>
+	<object type="image/svg+xml" data="satellite.svg" height="1030" width="1000">
+          <param name="src" value="satellite.svg">
+          alt : <a href="satellite.svg">It seems your browser does not support SVG. Consider using Google Chrome or another SVG enabled browser</a>
+        </object>
+      </p>
+    </div>
+  </div>
+  <div class="bottom">
+    &copy; <a href="mailto:jvdmeiden@gmail.com">Jan van der Meiden</a> 2015</a>
+  </div>
+</div>
+</body>
+</html>

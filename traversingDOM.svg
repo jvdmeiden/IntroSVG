@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> 
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/SVG/DTD/svg10.dtd"> 
+<svg xmlns="http://www.w3.org/2000/svg"  onload="startup(evt)" onmousedown="msdn(evt)" >
+
+<script><![CDATA[
+  var SVGDocument = null;
+  var SVGRoot = null;
+  var count=0;
+  var svgns = 'http://www.w3.org/2000/svg';
+ 
+function startup(evt){
+  SVGDoc = evt.target.ownerDocument;
+  LineRoot = SVGDoc.getElementById("Lines");
+  DotRoot = SVGDoc.getElementById("Dots");
+}
+
+
+function msdn(evt){
+    NewDot = SVGDoc.createElementNS(svgns,"circle");
+    NewDot.setAttribute("id", "P"+count);
+    NewDot.setAttribute("cx", evt.clientX); 
+    NewDot.setAttribute("cy", evt.clientY); 
+    NewDot.setAttribute("r", 7);  
+    NewDot.setAttribute("opacity",1);
+    NewDot.setAttribute("fill", "rgb(255,240,10)");
+    DotRoot.appendChild(NewDot);
+
+    var i=0;    
+    Q = SVGDoc.getElementById("P"+i);
+    while ( Q != null) {
+      NewLine = SVGDoc.createElementNS(svgns,"line");
+      NewLine.setAttribute("x1", evt.clientX);
+      NewLine.setAttribute("y1", evt.clientY);
+      NewLine.setAttribute("x2", Q.getAttribute("cx"));
+      NewLine.setAttribute("y2", Q.getAttribute("cy"));
+      NewLine.setAttribute("width", 2);
+      NewLine.setAttribute("stroke","rgb(50,50,240)");
+      LineRoot.appendChild(NewLine);
+      i+=1;
+	Q = SVGDoc.getElementById("P"+i);
+    }
+    count++;       
+}
+]]></script> 
+
+<rect x="0" y="0" width="100%" height="100%" fill="#333"/> 
+ <g id="Lines">
+ </g>
+ <g id="Dots">
+ </g>
+</svg> 

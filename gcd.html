@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SVG Intro</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SVG Intro</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home - Intro</a></li>
+        <li><a href="interaction.html">Interaction</a></li>
+        <li><a href="addingElements.html">Adding Elements</a></li>
+        <li><a href="interference.html">Interference</a></li>
+        <li><a href="traversingDOM.html">Traversing DOM</a></li>
+        <li><a href="postalCode.html">Postal Code MAP</a></li>
+        <li class="active"><a href="gcd.html">Generate Greatest Common Divisors</a></li>
+        <li><a href="satellite.html">Satellite Trajectory</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Using a Java servlet to generate SVG</h1>
+      <p>
+        The code shows how to use a servlet to generate SVG, in this case demonstrating Greatest Common Divisor properties of number pairs.
+     <pre>
+&lt;html&gt;
+&lt;body&gt;
+&lt;% 
+	}
+%&gt;
+&lt;%!
+    public static long GCD(long a, long b){
+        if (b==0) return a;
+        return GCD(b,a%b);
+    }
+%&gt;
+&lt;svg width="1030" height="1080" version="1.1" xmlns="http://www.w3.org/2000/svg" onload="Init()"&gt;
+ 
+  &lt;script type="text/ecmascript"&gt;
+  &lt;![CDATA[
+    var evtT1;
+    
+    function Init(evt)
+    {
+       evtT1 = document.getElementById("evtText1");
+    }
+    function Highlight(evt)
+    {
+       evt.target.setAttribute("opacity", "1.0");
+       evtT1.firstChild.nodeValue = "Mouse over: " + evt.target.getAttributeNS(null,"id");
+    }
+    function Unhighlight(evt)
+    {
+       evt.target.setAttribute("opacity", "0.8");
+       evtT1.firstChild.nodeValue = "";
+    }
+  ]]&gt;
+  &lt;/script&gt; 
+    &lt;rect width="100%" height="100%" fill="lightgrey"/&gt;    
+      &lt;g font-size="16px" font-family="Arial"&gt;
+        &lt;text x="20" y="20" color="black" id="evtText1" &gt; &lt;/text&gt;
+      &lt;/g&gt;
+
+&lt;%
+for (long n=1 ; n&lt; 50; n+=1){
+    for ( long m = 1; m &lt; 50 ; m+=1 ){
+        long gcd=GCD(n,m);
+        if ( gcd &lt; 2 ) {
+%&gt;
+&lt;rect x="&lt;%= n * 20 %&gt;"  y="&lt;%= 30 + m * 20 %&gt;" width="19" height="19" fill="darkgrey" opacity="0.8"
+          onmouseover="Highlight(evt);" onmouseout="Unhighlight(evt);"  id="&lt;%= n %&gt;,&lt;%= m %&gt;" 
+          gcd="&lt;%= gcd %&gt;" /&gt;
+&lt;%
+        } else {
+%&gt;
+&lt;rect x="&lt;%= n * 20 %&gt;"  y="&lt;%= 30 + m * 20 %&gt;" width="19" height="19" fill="darkred" opacity="0.8"
+          onmouseover="Highlight(evt);" onmouseout="Unhighlight(evt);"  id="&lt;%= n %&gt;,&lt;%= m %&gt;" 
+          gcd="&lt;%= gcd %&gt;"/&gt;
+&lt;%
+    	}
+	}
+}
+		if (browserType.indexOf("MSIE") &gt; 0) {
+%&gt;
+&lt;/svg&gt;
+&lt;%
+	}else{
+%&gt;
+&lt;/svg&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;%
+	}
+%&gt;
+      </pre>
+        It will show up like (demonstrating 'mouse over'):
+      </p>
+      <p>
+	<object type="image/svg+xml" data="gcd.svg" height="1030" width="1000">
+          <param name="src" value="gcd.svg">
+          alt : <a href="gcd.svg">It seems your browser does not support SVG. Consider using Google Chrome or another SVG 
+          enabled browser</a>
+        </object>
+      </p>
+    </div>
+  </div>
+  <div class="bottom">
+    &copy; <a href="mailto:jvdmeiden@gmail.com">Jan van der Meiden</a> 2015</a>
+  </div>
+</div>
+</body>
+</html>

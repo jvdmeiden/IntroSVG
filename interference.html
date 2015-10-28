@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SVG Intro</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SVG Intro</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home - Intro</a></li>
+        <li><a href="interaction.html">Interaction</a></li>
+        <li><a href="addingElements.html">Adding Elements</a></li>
+        <li class="active"><a href="interference.html">Interference</a></li>
+        <li><a href="traversingDOM.html">Traversing DOM</a></li>
+        <li><a href="postalCode.html">Postal Code MAP</a></li>
+        <li><a href="gcd.html">Generate Greatest Common Divisors</a></li>
+        <li><a href="satellite.html">Satellite Trajectory</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Interference Demo</h1>
+      <p>
+        This sample gives a simple example of interference (move the circles).
+     <pre>
+
+&lt;svg xmlns='http://www.w3.org/2000/svg'
+
+     width=&quot;1000px&quot; height=&quot;1000px&quot; version=&quot;1.1&quot;
+
+     onload=&quot;startup(evt)&quot; onmousedown=&quot;msdn(evt)&quot;
+
+     onmousemove=&quot;move(evt)&quot; onmouseup=&quot;msup(evt)&quot; &gt; 
+ 
+&lt;script&gt;&lt;![CDATA[
+  var SVGDocument = null;
+  var SVGRoot = null;
+  var count=0;
+  var up=1;
+  var svgns = 'http://www.w3.org/2000/svg';
+  var xcentre = 500;
+  var ycentre = 500;
+  var xpos = 0;
+  var ypos = 0;
+ 
+function startup(evt){
+  O=evt.target;
+  SVGDoc = O.ownerDocument;
+  SVGRoot = SVGDoc.documentElement;
+  for ( var i = 1; i &lt; 1500; i+=20) 
+  {
+    N = SVGDoc.createElementNS(svgns,&quot;circle&quot;);
+    N.setAttribute(&quot;id&quot;, &quot;P&quot;+i);
+    N.setAttribute(&quot;cx&quot;, xcentre); 
+    N.setAttribute(&quot;cy&quot;, ycentre); 
+    N.setAttribute(&quot;r&quot;, i); 
+    N.setAttribute(&quot;stroke&quot;, &quot;darkred&quot;);
+    N.setAttribute(&quot;stroke-width&quot;, &quot;10&quot;);
+    N.setAttribute(&quot;fill-opacity&quot;, &quot;0.0&quot;);
+    N.setAttribute(&quot;fill&quot;, &quot;white&quot;);    
+    SVGRoot.appendChild(N);
+  }	
+   
+  for ( var i = 1; i &lt; 1500; i+=20) 
+  {
+    N = SVGDoc.createElementNS(svgns,&quot;rect&quot;);
+    N.setAttribute(&quot;x&quot;, i); 
+    N.setAttribute(&quot;y&quot;, 0); 
+    N.setAttribute(&quot;width&quot;, 10); 
+    N.setAttribute(&quot;height&quot;, 1000);
+    N.setAttribute(&quot;fill&quot;, &quot;darkgrey&quot;);
+    N.setAttribute(&quot;line-opacity&quot;, &quot;0.8&quot;);
+    SVGRoot.appendChild(N);
+  }	
+   
+}
+ 
+function msdn(evt) {
+  xpos=evt.clientX-xcentre;
+  ypos=evt.clientY-ycentre;
+  up=0;
+}
+ 
+function msup(evt) {
+  up=1;
+}
+ 
+function move(evt){
+  if (up==0) {
+    xcentre=(evt.clientX-xpos);
+    ycentre=(evt.clientY-ypos);
+    for ( var i = 1; i &lt; 1500; i+=20) 
+    {
+      N = SVGDoc.getElementById(&quot;P&quot;+i);
+      N.setAttribute(&quot;id&quot;, &quot;P&quot;+i);
+      N.setAttribute(&quot;cx&quot;, xcentre); 
+      N.setAttribute(&quot;cy&quot;, ycentre); 
+      N.setAttribute(&quot;r&quot;, i); 
+    }	
+  }
+}
+]]&gt;&lt;/script&gt; 
+ 
+&lt;rect id=&quot;P&quot; x=&quot;0&quot; y=&quot;0&quot; width=&quot;100%&quot; height=&quot;100%&quot; fill=&quot;#f0f0f0&quot;/&gt; 
+&lt;/svg&gt; 
+
+      </pre>
+        It will show up like (drag circles):
+      </p>
+      <p>
+	<object type="image/svg+xml" data="interference.svg" height="640" width="640">
+          <param name="src" value="interference.svg">
+          alt : <a href="interference.svg">It seems your browser does not support SVG. Consider using Google Chrome or another SVG 
+          enabled browser</a>
+        </object>
+      </p>
+    </div>
+  </div>
+  <div class="bottom">
+    &copy; <a href="mailto:jvdmeiden@gmail.com">Jan van der Meiden</a> 2015</a>
+  </div>
+</div>
+</body>
+</html>

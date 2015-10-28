@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SVG Intro</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SVG Intro</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home - Intro</a></li>
+        <li><a href="interaction.html">Interaction</a></li>
+        <li><a href="addingElements.html">Adding Elements</a></li>
+        <li><a href="interference.html">Interference</a></li>
+        <li class="active"><a href="traversingDOM.html">Traversing DOM</a></li>
+        <li><a href="postalCode.html">Postal Code MAP</a></li>
+        <li><a href="gcd.html">Generate Greatest Common Divisors</a></li>
+        <li><a href="satellite.html">Satellite Trajectory</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Traversing the Document Object Model (DOM)</h1>
+      <p>
+        Again the javascript is payload in the CDATA section. 
+        The top element registers a number of listeners: onload and onmousedown.
+        The corresponding handlers can be found in the CDATA section. On startup the SVG 
+        will be an empty rectangle. <br>
+        On top if this are two layers: one layer for dots and one layer for lines. Dots are drawn on top of lines. 
+        On mouseclick a dot is added to the dot layer. All dots are connected by lines to all other dots. <br>
+        In order to achieve this if all new dot is created all existing dots are searched using SVGDoc.getElementById(&lt;ID&gt;) 
+        where SVGDoc is the root element.
+     <pre>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no" ?&gt; 
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/SVG/DTD/svg10.dtd"&gt; 
+&lt;svg xmlns="http://www.w3.org/2000/svg"  onload="startup(evt)" onmousedown="msdn(evt)" &gt;
+
+&lt;script&gt;&lt;![CDATA[
+  var SVGDocument = null;
+  var SVGRoot = null;
+  var count=0;
+  var svgns = 'http://www.w3.org/2000/svg';
+ 
+function startup(evt){
+  SVGDoc = evt.target.ownerDocument;
+  LineRoot = SVGDoc.getElementById("Lines");
+  DotRoot = SVGDoc.getElementById("Dots");
+}
+
+
+function msdn(evt){
+    NewDot = SVGDoc.createElementNS(svgns,"circle");
+    NewDot.setAttribute("id", "P"+count);
+    NewDot.setAttribute("cx", evt.clientX); 
+    NewDot.setAttribute("cy", evt.clientY); 
+    NewDot.setAttribute("r", 7);  
+    NewDot.setAttribute("opacity",1);
+    NewDot.setAttribute("fill", "rgb(255,240,10)");
+    DotRoot.appendChild(NewDot);
+
+    var i=0;    
+    Q = SVGDoc.getElementById("P"+i);
+    while ( Q != null) {
+      NewLine = SVGDoc.createElementNS(svgns,"line");
+      NewLine.setAttribute("x1", evt.clientX);
+      NewLine.setAttribute("y1", evt.clientY);
+      NewLine.setAttribute("x2", Q.getAttribute("cx"));
+      NewLine.setAttribute("y2", Q.getAttribute("cy"));
+      NewLine.setAttribute("width", 2);
+      NewLine.setAttribute("stroke","rgb(50,50,240)");
+      LineRoot.appendChild(NewLine);
+      i+=1;
+	Q = SVGDoc.getElementById("P"+i);
+    }
+    count++;       
+}
+]]&gt;&lt;/script&gt; 
+
+&lt;rect x="0" y="0" width="100%" height="100%" fill="#333"/&gt; 
+ &lt;g id="Lines"&gt;
+ &lt;/g&gt;
+ &lt;g id="Dots"&gt;
+ &lt;/g&gt;
+&lt;/svg&gt; 
+      </pre>
+        It will show up like (click at different locations):
+      </p>
+      <p>
+	<object type="image/svg+xml" data="traversingDOM.svg" height="640" width="640">
+          <param name="src" value="traversingDOM.svg">
+          alt : <a href="traversingDOM.svg">It seems your browser does not support SVG. Consider using Google Chrome or another SVG 
+          enabled browser</a>
+        </object>
+      </p>
+    </div>
+  </div>
+  <div class="bottom">
+    &copy; <a href="mailto:jvdmeiden@gmail.com">Jan van der Meiden</a> 2015</a>
+  </div>
+</div>
+</body>
+</html>
